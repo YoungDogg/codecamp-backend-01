@@ -11,3 +11,5 @@ if(stair > robot){ // 만약 로봇이 2칸씩 오를 계단이 남아있다면
   count += 1;
 }
 count = Math.round(count);
+
+console.log("git 테스트용");
