@@ -1,0 +1,13 @@
+{
+  "name": "04-03-rest-api-with-express-phone",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
