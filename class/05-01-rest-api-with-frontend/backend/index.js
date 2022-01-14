@@ -5,12 +5,13 @@ import swaggerUi from'swagger-ui-express';
 import swaggerJsdoc from'swagger-jsdoc';
 import {options} from './swagger/config.js';
 // const swaggerSpec = swaggerJSDoc(options);
+import cors from 'cors';
 
 
 
 const app = express();
 app.use(express.json()); // json으로 받은걸 보여준다
-
+app.use(cors()); // 모든 주소 다 허용 // app.use(cors({origin})); 특정사이트
 // const express = require('express');
 // const app = express();
 
@@ -36,7 +37,7 @@ app.get("/boards", function (req, res) {
     },
     {
       number: 3,
-      writer: "Sam3",
+      writer: "Sam3 edited after nodemon",
       title: "basketball and me3",
       contents: "hey all3",
     },
@@ -65,8 +66,7 @@ app.post("/tokens/phone", function (req, res) {
   // 2. 토큰 6자리 만들기
   const myToken = getToken(6);
   // 3. 휴대폰 번호에 토큰 전송
-  sendToken2SMS(req.body.myphone, myToken)
-  res.send('인증완료!!');
+  res.send("인증완료 222222");
 });
 
 app.listen(3000);

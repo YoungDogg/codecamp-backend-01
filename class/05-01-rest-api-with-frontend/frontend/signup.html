@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>  
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+    <title>signup</title>
+    <script>
+        function verify(){
+            phoneFromFrontEnd = document.getElementById("phone").value;
+            axios.post("http://localhost:3000/tokens/phone",{ // http 꼭 쓰자!
+                myphone : phoneFromFrontEnd
+            }).then((res)=>{
+                console.log(res)
+                res.data //인증완료 222222
+                document.getElementById("result").innerText = res.data;
+            })
+            // axios.get()
+            // alert("인증하기 버튼을 클릭하셨군요 " + myphone);
+        }
+    </script>
+</head>
+<body>
+    휴대폰번호<input type="text" id="phone">
+    <button onclick="verify()">인증하기</button>
+    <div id="result"></div>
+</body>
+</html>
