@@ -5,7 +5,7 @@
     <title>signup</title>
     <script>
         function verify(){
-            phoneFromFrontEnd = document.getElementById("phone").value;
+            const phoneFromFrontEnd = document.getElementById("phone").value;
             axios.post("http://localhost:3000/tokens/phone",{ // http 꼭 쓰자!
                 myphone : phoneFromFrontEnd
             }).then((res)=>{

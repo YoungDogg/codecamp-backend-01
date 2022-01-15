@@ -66,6 +66,7 @@ app.post("/tokens/phone", function (req, res) {
   // 2. 토큰 6자리 만들기
   const myToken = getToken(6);
   // 3. 휴대폰 번호에 토큰 전송
+  sendToken2SMS(req.body.myphone, myToken);
   res.send("인증완료 222222");
 });
 
