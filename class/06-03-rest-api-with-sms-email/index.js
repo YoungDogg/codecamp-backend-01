@@ -1,17 +1,18 @@
 // const express = require('express') // 옛날 import 방식
 import express from "express";
 import { checkValidationPhone, getToken, sendToken2SMS } from './phone.js';
+import {getWelcomeTemplate,  sendTempToEmail} from './email.js'
 import swaggerUi from'swagger-ui-express';
 import swaggerJsdoc from'swagger-jsdoc';
 import {options} from './swagger/config.js';
 // const swaggerSpec = swaggerJSDoc(options);
-import cors from 'cors';
-
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 const app = express();
 app.use(express.json()); // json으로 받은걸 보여준다
-app.use(cors()); // 모든 주소 다 허용 // app.use(cors({origin})); 특정사이트
+
 // const express = require('express');
 // const app = express();
 
@@ -37,7 +38,7 @@ app.get("/boards", function (req, res) {
     },
     {
       number: 3,
-      writer: "Sam3 edited after nodemon",
+      writer: "Sam3",
       title: "basketball and me3",
       contents: "hey all3",
     },
@@ -46,7 +47,8 @@ app.get("/boards", function (req, res) {
 
 
 app.post("/boards", function (req, res) {
-  console.log(req.body);
+  // console.log(req.body);
+  console.log(req);
 
   res.send("등록 성공");
 });
@@ -64,10 +66,33 @@ app.post("/tokens/phone", function (req, res) {
   // 1. 휴대폰 번호 자리수 확인
   checkValidationPhone(req.body.myphone);
   // 2. 토큰 6자리 만들기
+  
+
   const myToken = getToken(6);
   // 3. 휴대폰 번호에 토큰 전송
-  sendToken2SMS(req.body.myphone, myToken);
-  res.send("인증완료 222222");
+  sendToken2SMS(req.body.myphone, myToken)
+  res.send('인증완료!!');
+});
+
+app.post("/users", function(req, res){
+    const user = req.body.user;
+    let [name, age, school] = "";
+    name = user.name;
+    age = user.age;
+    school = user.school;
+    email = user.email;
+    // console.log("user : " + user);
+      // 1. email이 정상인지 확인(eamil 존재 여부, @포함여부)
+      if(user.email === undefined || !user.email.split("").includes("@")){
+        console.log(user.email);
+        console.log("이메일 다시 쓰세요");
+    }else{
+        // 2. 가입환영 템플릿 만들기
+         ;
+        // 3. 이메일에 가입환영 템플릿 전송하기
+        console.log(user.name + "님,  반갑습니다.");
+        sendTempToEmail(user.email, getWelcomeTemplate({name, age, school}));
+    }
 });
 
 app.listen(3000);
