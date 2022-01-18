@@ -64,10 +64,7 @@ app.get("/tokens/phone", function (req, res) {
 app.post("/tokens/phone", function (req, res) {
   console.log(req.body); 
   // 1. 휴대폰 번호 자리수 확인
-  checkValidationPhone(req.body.myphone);
-  // 2. 토큰 6자리 만들기
-  
-
+  checkValidationPhone(req.body.myphone); 
   const myToken = getToken(6);
   // 3. 휴대폰 번호에 토큰 전송
   sendToken2SMS(req.body.myphone, myToken)
