@@ -55,8 +55,11 @@ export async function sendToken2SMS(fff, ggg) { // fff 받는 번호, ggg 인증
     //header, config
     {
       headers: {
-        "X-Secret-Key": XSecretKey,   
-        "Content-Type": "application/json;charset=UTF-8"
+        "X-Secret-Key": XSecretKey, // <-------- 내걸로 바꿀 부분
+        //-----------------------blog 쓸 것-----------------------------------------
+        // 키를 큰 따옴표로 한 이유: - 는 큰 따옴표로 감싸야 정상 작동되기 때문
+        "Content-Type": "application/json;charset=UTF-8",
+        //----------------------------------------------------------------
       },
     }
   );
