@@ -7,10 +7,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
+    volumes:
+    # 밖인덱스에서 안에있는 인덱스로
+      - ./index.js:/myfolder/index.js
 
  
 
   my_database:
     image: mongo:latest
     ports:
-      - 27017:27017
+      - 27017:27017 

@@ -21,8 +21,12 @@ app.use(express.json()); // json으로 받은걸 보여준다
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(options)));
 
-app.get("/boards", function (req, res) {
+app.get("/boards", async function (req, res) {
+
+  const result = await Board.find({writer : "Sam"})
+  console.log(result);
   // res.send('Hello World')
+
   res.send([
     {
       number: 1,
@@ -46,10 +50,13 @@ app.get("/boards", function (req, res) {
 });
 
 app.post("/boards", async function (req, res) {
+  console.log("boards 안녕하세요!");
   console.log(req.body);
 
   const board = new Board({
-    writer: "몽구스 철수"
+    writer: req.body.mywriter,
+    title: req.body.mytitle,
+    contents: req.body.mycontents
   }); 
   await board.save()  // 몽고디비로 저장된다. 좀 기다려줘
 
