@@ -47,6 +47,7 @@ app.get("/boards", async function (req, res) {
       contents: "hey all3",
     },
   ]);
+  return;
 });
 
 app.post("/boards", async function (req, res) {
@@ -61,6 +62,7 @@ app.post("/boards", async function (req, res) {
   await board.save(); // 몽고디비로 저장된다. 좀 기다려줘
 
   res.send("등록 성공");
+  return;
 });
 
 app.get("/tokens/phone", function (req, res) {
@@ -69,32 +71,75 @@ app.get("/tokens/phone", function (req, res) {
       myphone: "01011113333",
     },
   ]);
+  return;
 });
 
 let globalToken = 0; // 인증토큰 업데이트 위해
 app.post("/tokens/phone", async function (req, res) {
+  console.log("=====req.body=====");
   console.log(req.body);
   // 1. 휴대폰 번호 자리수 확인
   checkValidationPhone(req.body.phone);
   const myToken = getToken(6);
+
+  // 입력받은 폰번호랑 같은 객체 찾는다.
+  const prevTokenPhone = await Token.findOne({ phone : req.body.phone})
+  console.log("=====prevTokenPhone=====");
+  console.log(prevTokenPhone);
+
+  // 이미 있다면 최신 토큰으로 덮어씌우기
+  if(prevTokenPhone) {
+    prevTokenPhone.token = myToken;
+    await prevTokenPhone.save();
+    await Token.updateOne({phone: req.body.phone}, {token})
+    res.send(`토큰번호 ${token} 인증완료!!`);
+    return;
+  }
   globalToken = Number(myToken);
   // 3. 휴대폰 번호에 토큰 전송
-  sendToken2SMS(req.body.phone, myToken);
-  res.send("인증완료!!" + req.body);
+  // sendToken2SMS(req.body.phone, myToken);
+  // res.send("인증완료!!" + req.body);
 
   const token = new Token({
     token: myToken,
     phone: req.body.phone,
-    isAuth: req.body.isAuth,
+    isAuth: false // 자동으로 주자.
   });
   await token.save(); // 몽고디비로 저장된다. 좀 기다려줘
-   
+  return;
 });
 
 app.patch("/tokens/phone", async function (req, res) {
+  console.log("=============req.body===========");
   console.log(req.body);
-  const phone = req.body.phone;
-  const myToken = req.body.token;
+
+  //! 핸드폰 번호 이미 저장됐는지 확인
+  const tokenPhone = await Token.findOne({ phone: req.body.phone})
+  console.log("=============tokenPhone===========");
+  console.log(tokenPhone);
+
+  if(!tokenPhone){
+    res.send(false);
+    return;
+  }
+
+  console.log(req.body, tokenPhone.token);
+
+  //! 발급한 토큰과 일치하는지 확인
+  if(tokenPhone.token !== req.body.token){
+    res.send(false);
+    return;
+  }
+
+  //! 인증확인 -> DB 업데이트
+  // tokenPhone.isAuth = true
+  // await tokenPhone.save()
+  await Token.updateOne({phone: req.body.phone}, {isAuth:true})
+  res.send(true);
+  return;
+
+  // const phone = req.body.phone;
+  // const myToken = req.body.token;
   
   //토큰이 같다면
   // if (req.body.token === globalToken) {
@@ -108,7 +153,7 @@ app.patch("/tokens/phone", async function (req, res) {
   //   await Token.findByIdAndUpdate(req.params.id, req.body, { isAuth: false });
   // }
 
-  res.send("patch 수정완료!!" + req.body);
+  // res.send("patch 수정완료!!" + req.body);
 });
 
 app.post("/users", function (req, res) {
@@ -123,12 +168,14 @@ app.post("/users", function (req, res) {
   if (user.email === undefined || !user.email.split("").includes("@")) {
     console.log(user.email);
     console.log("이메일 다시 쓰세요");
+    return;
   } else {
     // 2. 가입환영 템플릿 만들기
     // 3. 이메일에 가입환영 템플릿 전송하기
     console.log(user.name + "님,  반갑습니다.");
     sendTempToEmail(user.email, getWelcomeTemplate({ name, age, school }));
-  }
+    return;
+  } 
 });
 
 //몽고 디비에 접속
