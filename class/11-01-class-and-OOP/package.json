@@ -1,0 +1,13 @@
+{
+  "name": "11-01-class-and-OOP",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
