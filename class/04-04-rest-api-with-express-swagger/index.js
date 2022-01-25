@@ -6,8 +6,7 @@ import swaggerJsdoc from'swagger-jsdoc';
 import {options} from './swagger/config.js';
 // const swaggerSpec = swaggerJSDoc(options);
 
-
-
+ 
 const app = express();
 app.use(express.json()); // json으로 받은걸 보여준다
 

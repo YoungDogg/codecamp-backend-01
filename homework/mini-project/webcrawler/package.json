@@ -5,9 +5,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev":"nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "dependencies": {
+    "mongoose": "^6.1.7",
     "nodemon": "^2.0.15",
     "puppeteer": "^13.1.1"
   }

@@ -1,9 +1,9 @@
 /**
  * @swagger
- * /user:
- *  get::
+ * /users:
+ *  get:
  *      summary: 회원정보 가져오기
- *      tags: [User]
+ *      tags: [Users]
  *      requestBody:
  *               required: false
  *               content:
@@ -24,10 +24,10 @@
 
 /**
  * @swagger
- * /user:
+ * /users:
  *  post:
  *      summary: 회원정보  추가하기
- *      tags: [User]
+ *      tags: [Users]
  *      requestBody:
  *               required: true
  *               content:

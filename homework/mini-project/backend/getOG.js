@@ -2,13 +2,13 @@ import axios from "axios";
 import cheerio from "cheerio";
 
 export async function getOpenGraph(mydata) {
-  const myaddress = mydata 
-    .split(" ")
-    .filter((el) => el.includes("http"));
-
-  const htmlNaver = await axios.get(myaddress[0]);
-  const $ = cheerio.load(htmlNaver.data);
+  const htmlSite = await axios.get(mydata);
+  
+  const $ = cheerio.load(htmlSite.data);
   let result = {};
+  let title = "";
+  let description = "";
+  let image = "";
   $("meta").each((_, el) => {
     let key = "";
     if ($(el).attr("property")?.split(":")[0] === "og") {
@@ -18,19 +18,23 @@ export async function getOpenGraph(mydata) {
     if (key === "title") {
       const value = $(el).attr("content");
       // console.log(key, value);
-      result.title += value;
-    } else if (key === "url") {
+      title = value;
+    } else if (key === "description") {
       const value = $(el).attr("content");
       // console.log(key, value);
-      result.url += value;
+      description = value;
     } else if (key === "image") {
       const value = $(el).attr("content");
       // console.log(key, value);
-      result.image += value;
+      image = value;
     }
   });
-  console.log("=================");
-  console.log(result);
+  result.title = title;
+  result.description = description;
+  result.image = image;
+  
+  // console.log("======getOG.js==========="); 
+  // console.log(result);
   return result;
 }
 

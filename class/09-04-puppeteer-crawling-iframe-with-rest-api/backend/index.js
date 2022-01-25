@@ -104,9 +104,7 @@ app.post("/users", function (req, res) {
 
 app.get("/stocks", async function(req, res){
 
-  const stocks = await Stock.find();
-  
-  
+  const stocks = await Stock.find(); 
   res.send(stocks);
 })
 

@@ -2,7 +2,7 @@
 const getCoffee = () => {
   // 받은 데이터로 createMenuCard 함수를 이용해
   // 메뉴 카드를 만들어주세요.   
-  axios.get("http://localhost:3000/lookupCoffeList/10").then((req) => {
+  axios.get("http://localhost:3000/starbucks").then((req) => {
      
     let data = req.data; // 배열
 
@@ -28,7 +28,7 @@ const createMenuCard = (data) => {
 
   const menuCardInfo = document.createElement("div");
   menuCardInfo.className = "Menu_Card_Info";
-  menuCardInfo.textContent = data.kcal || "칼로리";
+  menuCardInfo.textContent = data.image || "이미지";
 
   const menuWrapper = document.querySelector("#Menu_Background");
   menuCardWrapper.appendChild(menuCardImgBox);

@@ -30,7 +30,7 @@ async function startCrawling() {
       `body > table.type2 > tbody > tr:nth-child(${i}) > td:nth-child(2) > span`,
       (el) => el.textContent
     );
-    new Stock({
+    const stock =  new Stock({
       name: "삼성전자",
       date: mydate,
       price: Number(price.replace(",", "")),

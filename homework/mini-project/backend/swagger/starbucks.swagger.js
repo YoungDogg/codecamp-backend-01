@@ -14,10 +14,10 @@
  *                               
  *      responses:
  *          '200':
- *                  description: true  리턴
+ *                  description: 커피 목록 조회 
  *                  content:
  *                       application/json:
  *                          schema:
- *                            type: boolean
- *                            example: true 
+ *                            type: object
+ *                            example: {name: 아메리카노, img : "http://www.starbucks.somethingImage.png"} 
  */
