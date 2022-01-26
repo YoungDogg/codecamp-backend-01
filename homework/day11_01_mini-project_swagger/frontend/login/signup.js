@@ -8,7 +8,9 @@ const getValidationNumber = async () => {
   }
 
   axios
-    .post(`http://localhost:3000/tokens/phone?phone=${phone}`)
+    .post(`http://localhost:3000/tokens/phone`, {
+      phone: phone,
+    })
     .then((req, res) => {
       console.log("=====================signup.js==================");
       console.log(phone);
@@ -24,13 +26,10 @@ const submitToken = async () => {
   }
   let token = "";
   token += String(document.getElementById(`TokenInput`).value);
-  axios
-    .patch(`http://localhost:3000/tokens/phone?phone=${phone}&token=${token}`)
-    .then((req, res) => {
-      console.log("=====================signup.js==================");
-      console.log(phone);
-      console.log(token);
-    });
+  axios.patch(`http://localhost:3000/tokens/phone`, {
+    phone : phone,
+    token : token
+  });
 };
 
 // 회원 가입 API 요청
