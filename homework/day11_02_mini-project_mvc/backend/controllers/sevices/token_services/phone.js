@@ -5,7 +5,7 @@ import axios from "axios";
 //   console.log("hihihihh"); // 위치를 바꾸니 또 되지 않았다. 자리로 판단되는 건가? 오버로딩은 안되고
 // } // 같은 이름 함수면 아래 보다 아래에 있는 함수가 실행된다.
 
-export function checkValidationPhone(myphone) {
+export const checkValidationPhone = (myphone) => {
   if (myphone.length !== 10 && myphone.length !== 11) {
     console.log("에러 발생! 핸드폰 번호를 제대로 입력해 주세요!!!");
     return false;
@@ -13,7 +13,8 @@ export function checkValidationPhone(myphone) {
     return true;
   }
 }
-export function getToken(num) {
+
+export const getToken = (num) => {
   //   const num = 6;
   if (num === undefined) {
     console.log("error occured num === undefined, type the right number");
@@ -32,7 +33,7 @@ export function getToken(num) {
   return result;
 }
 
-export async function sendToken2SMS(fff, ggg) { // fff 받는 번호, ggg 인증번호
+export  const sendToken2SMS = async (phoneNumber, tokenNumber) => { // phoneNumber 받는 번호, tokenNumber 인증번호
 
   const appKey =  process.env.SMS_APP_KEY;
   const senderPhoneNum = process.env.SMS_SENDER;
@@ -43,12 +44,12 @@ export async function sendToken2SMS(fff, ggg) { // fff 받는 번호, ggg 인증
     `https://api-sms.cloud.toast.com/sms/v3.0/appKeys/${appKey}/sender/sms`, // <-------- 내걸로 바꿀 부분 appkey
     //data, 필수요소 3인방!
     {
-      body: "인증번호 : [ " + ggg + " ]",
+      body: "인증번호 : [ " + tokenNumber + " ]",
       sendNo: senderPhoneNum, // 보내는 휴대폰번호
       recipientList: [
         // 받을 사람
         {
-          internationalRecipientNo: fff, // 이 한 줄만 써도 된다
+          internationalRecipientNo: phoneNumber, // 이 한 줄만 써도 된다
         },
       ],
     },
@@ -64,5 +65,5 @@ export async function sendToken2SMS(fff, ggg) { // fff 받는 번호, ggg 인증
     }
   );
   console.log("전송 완료");
-  console.log(ggg + "보내는 사람, " + fff + "받는사람");
+  console.log(tokenNumber + "보내는 사람, " + phoneNumber + "받는사람");
 }

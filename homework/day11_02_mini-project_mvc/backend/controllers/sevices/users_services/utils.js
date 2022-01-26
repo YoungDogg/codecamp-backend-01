@@ -1,5 +1,5 @@
 // getCreatedAt(){}
-export function getCreatedAt(){
+export const getCreatedAt = () => {
     const aaa = new Date();
     const yyyy = aaa.getFullYear();
     const mm = aaa.getMonth() + 1;

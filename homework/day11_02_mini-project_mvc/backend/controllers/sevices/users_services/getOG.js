@@ -1,7 +1,7 @@
 import axios from "axios";
 import cheerio from "cheerio";
 
-export async function getOpenGraph(mydata) {
+export  const getOpenGraph = async (mydata) => {
   const htmlSite = await axios.get(mydata);
   
   const $ = cheerio.load(htmlSite.data);

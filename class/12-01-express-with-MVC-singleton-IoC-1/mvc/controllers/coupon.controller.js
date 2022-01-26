@@ -1,4 +1,4 @@
-import { CashService } from "./services/point.js"
+import { CashService } from "./services/cash.js"
 
 export class CouponController {
     prodectService; // 생략가능

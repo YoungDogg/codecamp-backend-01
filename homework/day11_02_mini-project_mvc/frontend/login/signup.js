@@ -19,7 +19,7 @@ const getValidationNumber = async () => {
 
 // 핸드폰 인증 완료 API 요청
 const submitToken = async () => {
-  console.log("핸드폰 인증 완료 API");
+  console.log("핸드폰 인증 API");
   let phone = "";
   for (let i = 1; i <= 3; i++) {
     phone += String(document.getElementById(`PhoneNumber0${i}`).value);
@@ -62,9 +62,9 @@ const submitSignup = async () => {
       isGood2Go = false;
 
       // =============경고창 나오게 하기 ====================
-      let missingWarning = document.createElement("div");
-      missingWarning.innerHTML = "빠뜨린 거 있다! : " + key;
-      alert(missingWarning.outerHTML);
+      let missingAlert = document.createElement("div");
+      missingAlert.innerHTML = "빠뜨린 거 있다! : " + key;
+      alert(missingAlert.outerHTML);
       return -1;
     } else {
       isGood2Go = true;
@@ -74,12 +74,13 @@ const submitSignup = async () => {
 
   // 만약 모든 조건이 다 됐다면
   if (isGood2Go) {
-    let infoParam = "";
-    for (let key in personalInfo) {
-      infoParam += `${key}=${personalInfo[key]}&`;
-    }
-    // 마지막에 &이 붙어있어서 빼준다.
-    infoParam = infoParam.substring(0, infoParam.length - 1);
+    // 쿼리스트링용, 보안문제로 쓰지 않는다
+    // let infoParam = "";
+    // for (let key in personalInfo) {
+    //   infoParam += `${key}=${personalInfo[key]}&`;
+    // }
+    // // 마지막에 &이 붙어있어서 빼준다.
+    // infoParam = infoParam.substring(0, infoParam.length - 1);
     axios
       .post(`http://localhost:3000/users`, {
         name: personalInfo.name,
@@ -95,9 +96,9 @@ const submitSignup = async () => {
         console.log("==============");
         console.log("회원 가입 완료");
         CloseModal();
-        let missingWarning = document.createElement("div");
-        missingWarning.innerHTML = "회원가입 성공!";
-        alert(missingWarning.outerHTML);
+        let okAlert = document.createElement("div");
+        okAlert.innerHTML = "회원가입 성공!";
+        alert(okAlert.outerHTML);
         return;
       });
   }

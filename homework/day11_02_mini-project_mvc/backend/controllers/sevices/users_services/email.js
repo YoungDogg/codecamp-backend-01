@@ -2,7 +2,7 @@
 import { getCreatedAt } from "./utils.js";
 import axios from "axios";
 
-export function getWelcomeTemplate(name, personal, favoriteSite) {
+export const getWelcomeTemplate = (name, personal, favoriteSite) => {
   //여기 콘솔에 안찍힌다...
   const createdAt = getCreatedAt(); // back-end
 
@@ -20,7 +20,7 @@ export function getWelcomeTemplate(name, personal, favoriteSite) {
         `;
 }
 
-export async function sendTempToEmail(name, email, mytemplate) {
+export  const sendTempToEmail = async (name, email, mytemplate) => {
   const appKey = process.env.EMAIL_APP_KEY;
   const XSecretKey = process.env.EMAIL__X_SECRET_KEY;
   const sender = process.env.EMAIL_SENDER;
