@@ -23,10 +23,10 @@ app.patch("/tokens/phone", tokenController.patchToken);
 
 const usersController = new UsersController();
 app.get("/users", usersController.getUsers);
-app.post("/users", usersController.postUsers); // 여기로 받는다.
+app.post("/users", usersController.postUsers); 
 
 const starbucksController = new StarbucksController();
-app.get("/starbucks", starbucksController.getStarbucks);
+app.get("/starbucks", starbucksController.getStarbucks); // 여기로 받는다.
 
 mongoose.connect("mongodb://my_database:27017/codecamp");
 
