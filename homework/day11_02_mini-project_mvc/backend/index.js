@@ -26,7 +26,7 @@ app.get("/users", usersController.getUsers);
 app.post("/users", usersController.postUsers); 
 
 const starbucksController = new StarbucksController();
-app.get("/starbucks", starbucksController.getStarbucks); // 여기로 받는다.
+app.get("/starbucks", starbucksController.getStarbucks); // 여기에서 쓰인다
 
 mongoose.connect("mongodb://my_database:27017/codecamp");
 

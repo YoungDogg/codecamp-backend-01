@@ -1,9 +1,5 @@
 import axios from "axios";
-
-// function createTokenOfPhone() {
-//   // 오버로딩 된 값으로 들어온다. getToken(num)에 undefined 예외처리를 해도
-//   console.log("hihihihh"); // 위치를 바꾸니 또 되지 않았다. 자리로 판단되는 건가? 오버로딩은 안되고
-// } // 같은 이름 함수면 아래 보다 아래에 있는 함수가 실행된다.
+ 
 
 export const checkValidationPhone = (myphone) => {
   if (myphone.length !== 10 && myphone.length !== 11) {
