@@ -13,7 +13,7 @@ import { Board } from './apis/board/board.entity';
       host: ' localhost',
       port: 3306,
       username: 'root',
-      password: '0000',
+      password: '123456789',
       database: 'mysql',
       entities: [Board],
       synchronize: true,
