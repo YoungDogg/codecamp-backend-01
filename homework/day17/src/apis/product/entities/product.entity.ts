@@ -35,8 +35,9 @@ export class Product {
   quantaty: number;
 
   @JoinColumn() // 생략가능
-  @ManyToOne(() => CouponCode) // 여러개 상품, 하나의 할인쿠폰
+  @OneToOne(() => CouponCode) // 여러개 상품, 하나의 할인쿠폰
   couponCode: CouponCode;
+  
   @ManyToOne(() => Image) // 여러개 상품, 하나의 이미지
   image: Image;
   @ManyToOne(() => Player) // 여러개 상품, 하나의 선수
