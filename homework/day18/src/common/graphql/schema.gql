@@ -1,0 +1,91 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Brand {
+  id: String!
+  name: String!
+}
+
+type MainCategory {
+  id: String!
+  name: String!
+}
+
+type SubCategory {
+  id: String!
+  name: String!
+  mainCategory: MainCategory!
+  products: [Product!]
+}
+
+type CouponCode {
+  id: String!
+  name: String!
+  isCouponCodeAvailable: Boolean!
+  discountAmount: Int!
+}
+
+type Image {
+  id: String!
+  isThumbnail: Boolean!
+  imageURL: String!
+}
+
+type Personalisation {
+  id: String!
+  isPersonalisationAvailable: Boolean!
+  name: String!
+  armBadge: String!
+  customContents: String!
+}
+
+type Player {
+  id: String!
+  name: String!
+}
+
+type Product {
+  id: String!
+  name: String
+  productDescription: String
+  shippingDescription: String
+  size: String
+  price: Int
+  stock: Int
+  couponCode: CouponCode
+  image: Image
+  player: Player
+  brand: Brand
+  personalisation: Personalisation
+  subCategory: [SubCategory!]
+}
+
+type Query {
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+  isSoldout(productId: String!): Product!
+}
+
+type Mutation {
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(updateProductInput: UpdateProductInput!, productId: String!): Product!
+}
+
+input CreateProductInput {
+  name: String
+  productDescription: String
+  shippingDescription: String
+  size: String
+  price: Int
+  stock: Int
+}
+
+input UpdateProductInput {
+  name: String
+  productDescription: String
+  shippingDescription: String
+  size: String
+  price: Int
+  stock: Int
+}
