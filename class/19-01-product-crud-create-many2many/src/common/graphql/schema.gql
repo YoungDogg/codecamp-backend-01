@@ -27,16 +27,10 @@ type User {
   password: String!
 }
 
-type ProductTag {
-  id: String!
-  tag: String!
-  products: [Product!]!
-}
-
 type Product {
   id: String!
   name: String!
-  description: String!
+  description: String
   price: Int!
   isSoldout: Boolean!
   productSalesLocation: ProductSalesLocation!
@@ -45,24 +39,34 @@ type Product {
   productTags: [ProductTag!]!
 }
 
+type ProductTag {
+  id: String!
+  name: String!
+  products: [Product!]!
+}
+
 type Query {
   sayHello: String!
   fetchProducts: [Product!]!
   fetchProduct(productId: String!): Product!
+  sayHi: String!
 }
 
 type Mutation {
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!, productId: String!): Product!
   deleteProduct(productId: String!): Boolean!
+  createProductCategory(name: String!): ProductCategory!
+  deleteProductCategory(productCategoryId: String!): Boolean!
 }
 
 input CreateProductInput {
   name: String!
-  description: String!
+  description: String
   price: Int!
   productSalesLocation: ProductSalesLocationInput!
   productCategoryId: String!
+  productTags: [String!]!
 }
 
 input ProductSalesLocationInput {

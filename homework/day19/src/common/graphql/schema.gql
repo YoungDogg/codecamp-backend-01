@@ -1,0 +1,188 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Brand {
+  id: String!
+  name: String!
+}
+
+type MainCategory {
+  id: String!
+  name: String!
+}
+
+type Image {
+  id: String!
+  isThumbnail: Boolean!
+  imageURL: String!
+}
+
+type Personalisation {
+  id: String!
+  isPersonalisationAvailable: Boolean!
+  name: String!
+  armBadge: String!
+  customContents: String!
+}
+
+type Player {
+  id: String!
+  name: String!
+}
+
+type ProductCategory {
+  id: String!
+  name: String!
+}
+
+type ProductSalesLocation {
+  id: String!
+  address: String!
+  addressDetail: String!
+  lat: Float!
+  lng: Float!
+  arriveAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ProductTag {
+  id: String!
+  tag: String!
+  products: [Product!]!
+}
+
+type Product {
+  id: String!
+  name: String!
+  isSoldout: Boolean!
+  productDescription: String
+  shippingDescription: String
+  size: String
+  price: Int
+  stock: Int
+  productSalesLocation: ProductSalesLocation!
+  productCategory: ProductCategory!
+  productTags: [ProductTag!]!
+  image: Image
+  player: Player
+  brand: Brand
+  personalisation: Personalisation
+  subCategory: [SubCategory!]
+}
+
+type SubCategory {
+  id: String!
+  name: String!
+  mainCategory: MainCategory!
+  products: [Product!]
+}
+
+type CouponCode {
+  id: String!
+  name: String!
+  isCouponCodeAvailable: Boolean!
+  discountAmount: Int!
+}
+
+type Query {
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+  sayHello: String!
+}
+
+type Mutation {
+  createMainCategory(createMainCategoryInput: CreateMainCategoryInput!): MainCategory!
+  updateMainCategory(updateMainCategoryInput: UpdateMainCategoryInput!, id: String!): MainCategory!
+  deleteProduct(productId: String!): Boolean!
+  createSubCategory(createSubCategoryInput: CreateSubCategoryInput!): SubCategory!
+  updateSubCategory(updateSubCategoryInput: UpdateSubCategoryInput!, id: String!): SubCategory!
+  createImage(createImageInput: CreateImageInput!): Image!
+  updateImage(updateImageInput: UpdateImageInput!, id: String!): Image!
+  createCouponCode(createCouponCodeInput: CreateCouponCodeInput!): CouponCode!
+  updateCouponCode(updateCouponCodeInput: UpdateCouponCodeInput!, id: String!): CouponCode!
+  createBrand(createBrandInput: CreateBrandInput!): Brand!
+  updateBrand(updateBrandInput: UpdateBrandInput!, id: String!): Brand!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(updateProductInput: UpdateProductInput!, productId: String!): Product!
+}
+
+input CreateMainCategoryInput {
+  name: String!
+}
+
+input UpdateMainCategoryInput {
+  name: String!
+}
+
+input CreateSubCategoryInput {
+  name: String!
+}
+
+input UpdateSubCategoryInput {
+  name: String!
+  mainCategoryId: String!
+}
+
+input CreateImageInput {
+  isThumbnail: Boolean!
+  imageURL: String!
+}
+
+input UpdateImageInput {
+  isThumbnail: Boolean!
+  imageURL: String!
+}
+
+input CreateCouponCodeInput {
+  name: String!
+  isCouponCodeAvailable: Boolean!
+  discountAmount: Int!
+}
+
+input UpdateCouponCodeInput {
+  name: String!
+  isCouponCodeAvailable: Boolean!
+  discountAmount: Int!
+}
+
+input CreateBrandInput {
+  name: String!
+}
+
+input UpdateBrandInput {
+  name: String!
+}
+
+input CreateProductInput {
+  productSalesLocation: ProductSalesLocationInput
+  productCategoryId: String
+  name: String
+  productDescription: String
+  shippingDescription: String
+  size: String
+  price: Int
+  stock: Int
+}
+
+input ProductSalesLocationInput {
+  address: String!
+  addressDetail: String!
+  lat: Float!
+  lng: Float!
+  arriveAt: DateTime!
+}
+
+input UpdateProductInput {
+  description: String
+  name: String
+  productDescription: String
+  shippingDescription: String
+  size: String
+  price: Int
+  stock: Int
+}

@@ -1,12 +1,15 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Brand } from 'src/apis/brand/entities/brand.entity';
 import { SubCategory } from 'src/apis/category/subCategory/entities/subCategory.entity';
-import { CouponCode } from 'src/apis/couponcode/entities/couponcode.entity';
 import { Image } from 'src/apis/image/entities/image.entity';
 import { Personalisation } from 'src/apis/personalisation/entities/personalisation.entity';
 import { Player } from 'src/apis/player/entities/player.entity';
+import { ProductCategory } from 'src/apis/productCategory/entities/productCategory.entity';
+import { ProductSalesLocation } from 'src/apis/productSalesLocation/entities/productSalesLocation.entity';
+import { User } from 'src/apis/user/entities/user.entity';
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   JoinTable,
@@ -15,6 +18,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { ProductTag } from '../../productTag/entities/productTag.entity';
 
 @Entity()
 @ObjectType()
@@ -22,9 +26,12 @@ export class Product {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
-  @Column({ nullable: true })
-  @Field(() => String, { nullable: true })
-  name?: string;
+  @Column()
+  @Field(() => String)
+  name: string;
+  @Column({ default: false })
+  @Field(() => Boolean)
+  isSoldout: boolean;
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })
   productDescription?: string;
@@ -41,11 +48,23 @@ export class Product {
   @Field(() => Int, { nullable: true })
   stock?: number;
 
-  // @JoinColumn() // 생략가능
-  // @OneToOne(() => CouponCode) // 여러개 상품, 하나의 할인쿠폰
-  // @Field(() => CouponCode, { nullable: true })
-  // couponCode?: CouponCode;
+  @DeleteDateColumn() // 소프트삭제 제 4 방법
+  deletedAt: Date;
 
+  @JoinColumn({})
+  @OneToOne(() => ProductSalesLocation)
+  @Field(() => ProductSalesLocation)
+  productSalesLocation: ProductSalesLocation;
+
+  @ManyToOne(() => ProductCategory, { cascade: true, onDelete: 'CASCADE' }) // 여러개 상품, 하나의 카테고리
+  @Field(() => ProductCategory)
+  productCategory: ProductCategory;
+
+  @JoinTable() // 중간 테이블을 만든다. 둘 중 한군데에 만든다.
+  @ManyToMany(() => ProductTag, (productTags) => productTags.products) // 여러개 상품, 하나의 유저
+  @Field(() => [ProductTag])
+  productTags: ProductTag[];
+  // ==============================================================================================
   @ManyToOne(() => Image) // 여러개 상품, 하나의 이미지
   @Field(() => Image, { nullable: true })
   image?: Image;
