@@ -13,7 +13,6 @@ export class GqlAuthAccessGuard extends AuthGuard('access') {
 }
 
 export class GqlAuthRefreshGuard extends AuthGuard('refresh') {
-  //
   getRequest(context: ExecutionContext) {
     // 브라우저에서 받은 부분
     const ctx = GqlExecutionContext.create(context);
