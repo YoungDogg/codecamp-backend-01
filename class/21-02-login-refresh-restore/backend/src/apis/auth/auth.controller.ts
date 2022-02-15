@@ -18,7 +18,7 @@ export class AuthController {
 
   @Get('/login/google')
   @UseGuards(AuthGuard('google'))
-  async loginGoogle(
+  async loginGoogle(k
     @Req() req: Request & IOAuthUser, //
     @Res() res: Response,
   ) {

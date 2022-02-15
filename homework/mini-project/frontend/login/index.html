@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인/회원가입</title>
+    <link rel="stylesheet" href="./index.css" />
+    <!-- <script
+      type="text/javascript"
+      src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+      charset="utf-8"
+    ></script> -->
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.11.3.min.js"
+    ></script>
+  </head>
+  <body>
+    <!-- 전체 컨테이너 -->
+    <div class="Container">
+      <!-- 본 컨텐츠 -->
+      <div class="Wrapper">
+        <div class="LogoWrapper">
+          <img class="LogoImg" src="../img/starbucks.png" />
+          <div class="LogoTitle">CodeBucks</div>
+          <a href="../menu/index.html" class="Menu_Button"> 메뉴 바로가기</a>
+        </div>
+        <div id="SocialLoginGoogle">
+          <img class="SocialLoginButtonImg" src="../img/google.png" />
+          <a
+            class="SocialLoginButtonTitle"
+            href="http://localhost:3000/login/google"
+            >구글로 로그인</a
+          >
+        </div>
+        <div id="SocialLoginNaver">
+          <img src="../img/naver.png" />
+          <a
+            href="http://localhost:3000/login/naver"
+            class="SocialLoginButtonTitle"
+            >네이버로 로그인</a
+          >
+        </div>
+        <div id="SocialLoginKakao">
+          <img class="SocialLoginButtonImg" src="../img/kakao.png" />
+          <a
+            href="http://localhost:3000/login/kakao"
+            class="SocialLoginButtonTitle"
+            >카카오톡으로 로그인</a
+          >
+        </div>
+        <div id="SocialLoginFacebook">
+          <img class="SocialLoginButtonImg" src="../img/facebook.png" />
+          <a class="SocialLoginButtonTitle">페이스북으로 로그인</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

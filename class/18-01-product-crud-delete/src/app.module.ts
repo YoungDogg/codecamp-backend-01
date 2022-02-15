@@ -18,7 +18,7 @@ import { ProductModule } from './apis/product/product.module';
       port: 3306,
       username: 'root',
       password: '123456789',
-      database: 'day18',
+      database: 'productTable',
       entities: [__dirname + '/apis/**/*.entity.*'],
       synchronize: true,
       logging: true, //
