@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- jQuery -->
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+    ></script>
+    <!-- iamport.payment.js -->
+    <script
+      type="text/javascript"
+      src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
+    ></script>
+    <script>
+      function mypayment() {
+        const myAmount = Number(document.getElementById("aaa").value);
+        console.log(`myAmount===================`);
+        console.log(myAmount);
+        IMP.init("imp81993223"); // 예: imp00000000
+        // IMP.request_pay(param, callback) 결제창 호출
+        IMP.request_pay(
+          {
+            // param
+            pg: "html5_inicis",
+            pay_method: "card",
+            // merchant_uid: "ORD20180131-0000011",
+            name: "노르웨이 회전 의자",
+            amount: myAmount,
+            buyer_email: "gildong@gmail.com",
+            buyer_name: "홍길동",
+            buyer_tel: "010-4242-4242",
+            buyer_addr: "서울특별시 강남구 신사동",
+            buyer_postcode: "01181",
+          },
+          function (rsp) {
+            // callback
+            if (rsp.success) {
+              alert("결제에 성공했습니다");
+              console.log(rsp);
+            } else {
+            }
+          }
+        );
+      }
+    </script>
+    <title>결제페이지</title>
+  </head>
+  <body>
+    결제할 금액: <input type="text" id="aaa" />
+    <button onclick="mypayment()">결제하기</button>
+  </body>
+</html>
