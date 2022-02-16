@@ -40,20 +40,27 @@ export class UserService {
     });
   }
 
-  async create({ email, hashedPassword: password, name, age }) {
+  async create({ email, hashedPassword: password, name, age, point }) {
     const user = await this.userRepository.findOne({ email });
     if (user) throw new ConflictException('이미 등록된 이메일 입니다.');
 
-    return await this.userRepository.save({ email, password, name, age });
+    return await this.userRepository.save({
+      email,
+      password,
+      name,
+      age,
+      point,
+    });
   }
 
-  async update({ email, hashedPassword: password, name, age }) {
+  async update({ email, hashedPassword: password, name, age, point }) {
     const user = await this.userRepository.findOne({ email });
     const newUser = {
       ...user,
       password,
       name,
       age,
+      point,
     };
     console.log(`==========update user=============`);
     console.log(newUser);

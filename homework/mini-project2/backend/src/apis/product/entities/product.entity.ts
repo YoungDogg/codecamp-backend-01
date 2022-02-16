@@ -1,5 +1,4 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Brand } from 'src/apis/brand/entities/brand.entity';
 import { ProductCategory } from 'src/apis/productCategory/entities/productCategory.entity';
 import { ProductSaleslocation } from 'src/apis/productSaleslocation/entities/productSaleslocation.entity';
 import { ProductTag } from 'src/apis/productTag/entities/productTag.entity';
@@ -52,13 +51,9 @@ export class Product {
   @Field(() => ProductCategory)
   productCategory: ProductCategory;
 
-  // @ManyToOne(() => User) // moved to order table
-  // @Field(() => User)
-  // user: User;
-
-  @ManyToOne(() => Brand)
-  @Field(() => Brand)
-  brand: Brand;
+  @ManyToOne(() => User)
+  @Field(() => User)
+  user: User;
 
   @JoinTable()
   @ManyToMany(() => ProductTag, (productTags) => productTags.products)

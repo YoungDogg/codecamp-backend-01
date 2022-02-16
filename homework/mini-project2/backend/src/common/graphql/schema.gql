@@ -5,14 +5,9 @@
 type User {
   id: String!
   email: String!
-  name: String!
-  age: Int!
-  point: Float
-}
-
-type Brand {
-  brandId: String!
-  name: String!
+  name: String
+  age: Int
+  point: Int
 }
 
 type ProductCategory {
@@ -34,12 +29,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type ProductTag {
-  id: String!
-  name: String!
-  products: [Product!]!
-}
-
 type Product {
   id: String!
   name: String!
@@ -48,62 +37,32 @@ type Product {
   isSoldout: Boolean!
   productSaleslocation: ProductSaleslocation!
   productCategory: ProductCategory!
-  brand: Brand!
+  user: User!
   productTags: [ProductTag!]!
 }
 
-type Order {
+type ProductTag {
   id: String!
-  status: ORDER_STATUS_ENUM
-}
-
-enum ORDER_STATUS_ENUM {
-  CINFIRMED
-  CANCELED
-}
-
-type PointTransaction {
-  id: String!
-  impUid: String!
-  amount: Int!
-  status: POINT_TRANSACTION_STATUS_ENUM!
-  user: User!
-}
-
-enum POINT_TRANSACTION_STATUS_ENUM {
-  PAYMENT
-  CANCLE
+  name: String!
+  products: [Product!]!
 }
 
 type Query {
-  fetchOrdersAll: [Order!]!
-  fetchOrderOne(orderId: String!): Order!
-  fetchProducts: [User!]!
-  fetchProduct(email: String!): User!
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
   fetchUser: String!
 }
 
 type Mutation {
-  create(status: String, productId: String!, email: String!): Order!
-  createPointTransaction(amount: Float!, impUid: String!): PointTransaction!
   login(password: String!, email: String!): String!
-  createBrand(createBrandInput: CreateBrandInput!): Brand!
-  updateBrand(updateBrandInput: UpdateBrandInput!, brandId: String!): Brand!
-  deleteProduct(productId: String!): Boolean!
+  restoreAccessToken: String!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!, productId: String!): Product!
+  deleteProduct(productId: String!): Boolean!
   createProductCategory(name: String!): ProductCategory!
   deleteProductCategory(productCategoryId: String!): Boolean!
-  createUser(point: Float, age: Float!, name: String!, password: String!, email: String!): User!
-  updateUser(point: Float, age: Float!, name: String!, password: String!, email: String!): User!
-}
-
-input CreateBrandInput {
-  name: String!
-}
-
-input UpdateBrandInput {
-  name: String
+  createUser(age: Float!, name: String!, password: String!, email: String!): User!
+  updateUser(point: Float, age: Float, name: String, email: String!): User!
 }
 
 input CreateProductInput {
@@ -113,7 +72,6 @@ input CreateProductInput {
   productSaleslocation: ProductSaleslocationInput!
   productCategoryId: String!
   productTags: [String!]!
-  brandId: String!
 }
 
 input ProductSaleslocationInput {
@@ -130,5 +88,4 @@ input UpdateProductInput {
   price: Int
   productSaleslocation: ProductSaleslocationInput
   productTags: [String!]
-  brandId: String
 }

@@ -1,7 +1,6 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Brand } from '../brand/entities/brand.entity';
 import { ProductCategory } from '../productCategory/entities/productCategory.entity';
 import { ProductSaleslocation } from '../productSaleslocation/entities/productSaleslocation.entity';
 import { ProductTag } from '../productTag/entities/productTag.entity';
@@ -9,7 +8,7 @@ import { CreateProductInput } from './dto/createProduct.input';
 import { UpdateProductInput } from './dto/updateProduct.input';
 import { Product } from './entities/product.entity';
 
-export interface IFindOne {
+interface IFindOne {
   productId: string;
 }
 
@@ -17,7 +16,7 @@ interface ICreate {
   createProductInput: CreateProductInput;
 }
 
-interface IUpdate { 
+interface IUpdate {
   productId: string;
   updateProductInput: UpdateProductInput;
 }
@@ -36,30 +35,18 @@ export class ProductService {
 
     @InjectRepository(ProductTag)
     private readonly productTagRepository: Repository<ProductTag>,
-    @InjectRepository(Brand)
-    private readonly brandRepository: Repository<Brand>,
   ) {}
 
   async findAll() {
     return await this.productRepository.find({
-      relations: [
-        'productSaleslocation',
-        'productCategory',
-        'productTags',
-        'brand',
-      ],
+      relations: ['productSaleslocation', 'productCategory', 'productTags'],
     });
   }
 
   async findOne({ productId }: IFindOne) {
     return await this.productRepository.findOne({
       where: { id: productId },
-      relations: [
-        'productSaleslocation',
-        'productCategory',
-        'productTags',
-        'brand',
-      ],
+      relations: ['productSaleslocation', 'productCategory', 'productTags'],
     });
   }
 
@@ -85,13 +72,8 @@ export class ProductService {
     // const productSaleslocation = createProductInput.productSaleslocation
     //
     // 2-2. 한번에 분해하기
-    const {
-      brandId,
-      productSaleslocation,
-      productCategoryId,
-      productTags,
-      ...product
-    } = createProductInput;
+    const { productSaleslocation, productCategoryId, productTags, ...product } =
+      createProductInput;
 
     const result1 = await this.productSaleslocationRepository.save({
       ...productSaleslocation,
@@ -125,24 +107,18 @@ export class ProductService {
       }
     }
 
-    const result4 = await this.brandRepository.findOne({
-      brandId: brandId,
-    });
-
     // 방금 등록한 productTag 포함시켜서 product 등록!!
     return await this.productRepository.save({
       ...product,
       productSaleslocation: result1,
       productCategory: result2, // { id: productCategoryId }와 차이점 비교하기
       productTags: result3,
-      brandId: result4,
     });
   }
 
-  async update({  productId, updateProductInput }: IUpdate) {
-    const product = await this.productRepository.findOne({ id: productId }); 
+  async update({ productId, updateProductInput }: IUpdate) {
+    const product = await this.productRepository.findOne({ id: productId });
     const { productTags, ...newProduct } = {
-
       ...product,
       ...updateProductInput,
 

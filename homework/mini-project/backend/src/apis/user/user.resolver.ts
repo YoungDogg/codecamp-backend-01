@@ -26,10 +26,17 @@ export class UserResolver {
     @Args('password') password: string,
     @Args('name') name: string,
     @Args('age') age: number,
+    @Args('point', { nullable: true }) point: number,
   ) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    return await this.userService.create({ email, hashedPassword, name, age });
+    return await this.userService.create({
+      email,
+      hashedPassword,
+      name,
+      age,
+      point,
+    });
   }
 
   @Mutation(() => User)
@@ -38,9 +45,16 @@ export class UserResolver {
     @Args('password') password: string,
     @Args('name') name: string,
     @Args('age') age: number,
+    @Args('point', { nullable: true }) point: number,
   ) {
     const hashedPassword = await bcrypt.hash(password, 10);
-    return await this.userService.update({ email, hashedPassword, name, age });
+    return await this.userService.update({
+      email,
+      hashedPassword,
+      name,
+      age,
+      point,
+    });
   }
 
   @UseGuards(GqlAuthAccessGuard)
