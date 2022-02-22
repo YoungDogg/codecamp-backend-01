@@ -25,3 +25,4 @@ services:
     # cap_add:
     #   - SYS_NICE
     ports:
+      - 3306:3306
