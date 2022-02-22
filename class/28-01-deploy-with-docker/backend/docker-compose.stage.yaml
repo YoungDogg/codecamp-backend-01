@@ -10,7 +10,8 @@ services:
     volumes:
       # 밖인덱스에서 안에있는 인덱스로
       - ./index.js:/myfolder/index.js
-
+    env_file:
+      - ./.env.stage
   my_database:
     platform: linux/x86_64
     image: mysql:latest
@@ -18,4 +19,4 @@ services:
       MYSQL_DATABASE: 'myproject'
       MYSQL_PASSWORD: 'root'
     ports:
-      - 27017:27017
+      - 3306:3306

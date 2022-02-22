@@ -10,6 +10,8 @@ services:
     volumes:
       # 밖인덱스에서 안에있는 인덱스로
       - ./index.js:/myfolder/index.js
+    env_file:
+      - ./.env
 
   my_database:
     platform: linux/x86_64
