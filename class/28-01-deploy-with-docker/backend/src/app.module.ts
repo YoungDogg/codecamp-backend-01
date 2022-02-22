@@ -28,7 +28,7 @@ import { ConfigModule } from '@nestjs/config';
       host: 'my_database',
       port: 3306,
       username: 'root',
-      password: '123456789',
+      password: 'root',
       database: 'myproject',
       entities: [__dirname + '/apis/**/*.entity.*'],
       synchronize: true,
