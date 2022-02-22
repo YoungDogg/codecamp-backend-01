@@ -16,6 +16,6 @@ services:
     image: mysql:latest
     environment:
       MYSQL_DATABASE: 'myproject'
-      MYSQL_PASSWORD: '123456789'
+      MYSQL_PASSWORD: 'root'
     ports:
       - 3306:3306

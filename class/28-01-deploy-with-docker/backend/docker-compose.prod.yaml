@@ -7,15 +7,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    volumes:
-      # 밖인덱스에서 안에있는 인덱스로
-      - ./index.js:/myfolder/index.js
+    # volumes:
+    #   # 밖인덱스에서 안에있는 인덱스로
+    #   - ./index.js:/myfolder/index.js
 
   my_database:
     platform: linux/x86_64
     image: mysql:latest
     environment:
       MYSQL_DATABASE: 'myproject'
-      MYSQL_PASSWORD: '123456789'
+      MYSQL_PASSWORD: 'root'
     ports:
       - 27017:27017
