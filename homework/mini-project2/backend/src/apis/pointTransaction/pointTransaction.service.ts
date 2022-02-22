@@ -30,19 +30,60 @@ export class PointTransactionService {
   //   return point;
   // }
 
-  checkDuplicate({ impUid }) {
-    const result = this.pointTransactionRepository.findOne({ impUid });
+  async checkDuplicate({ impUid }) {
+    const result = await this.pointTransactionRepository.findOne({ impUid });
+    console.log(`result================`);
+    console.log(result);
     if (result) throw new ConflictException('이미 결제된 아이디입니다.');
   }
 
-  async create({ impUid, amount, currentUser }) {
-    // 1. pointTransaction 테이블의 거래기록 생성
+  //========== 4 CANCEL===================
+  async checkAlreadyCanceled({ impUid }) {
+    const pointTransaction = await this.pointTransactionRepository.findOne({
+      impUid,
+      status: POINT_TRANSACTION_STATUS_ENUM.CANCLE,
+    });
+    if (pointTransaction)
+      throw new ConflictException('이미 취소된 결제 아이디입니다.');
+  }
 
+  async hasPntEnugh2Cancel({ impUid, currentUser }) {
+    const pointTransaction = await this.pointTransactionRepository.findOne({
+      impUid,
+      user: { id: currentUser.id },
+      status: POINT_TRANSACTION_STATUS_ENUM.PAYMENT,
+    });
+    if (!pointTransaction)
+      throw new UnprocessableEntityException('결제 기록이 존재하지 않습니다');
+
+    const user = await this.userRepository.findOne({ id: currentUser.id });
+    if (user.point < pointTransaction.amount)
+      throw new UnprocessableEntityException('취소가능한 포인트가 부족합니다.');
+  }
+  async cancel({ impUid, amount, currentUser }) {
+    const pointTransaction = await this.create({
+      impUid,
+      amount: -amount, // 충전한 걸 취소하는 것이니까
+      currentUser,
+      status: POINT_TRANSACTION_STATUS_ENUM.CANCLE,
+    });
+
+    return pointTransaction;
+  }
+  //=================================================
+  async create({
+    impUid,
+    amount,
+    currentUser,
+    status = POINT_TRANSACTION_STATUS_ENUM.PAYMENT, // DEFAULT값 넣어줄 때
+  }) {
+    // 1. pointTransaction 테이블의 거래기록 생성
+    if (!status) status = POINT_TRANSACTION_STATUS_ENUM.PAYMENT;
     const pointTransaction = await this.pointTransactionRepository.create({
       impUid,
       amount,
       user: currentUser,
-      status: POINT_TRANSACTION_STATUS_ENUM.PAYMENT,
+      status,
     });
 
     await this.pointTransactionRepository.save(pointTransaction);

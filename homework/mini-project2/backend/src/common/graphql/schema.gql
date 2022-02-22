@@ -68,7 +68,7 @@ type Query {
 
 type Mutation {
   createPointTransaction(amount: Float!, impUid: String!): PointTransaction!
-  cancelPointTransaction: PointTransaction!
+  cancelPointTransaction(impUid: String!): PointTransaction!
   login(password: String!, email: String!): String!
   restoreAccessToken: String!
   createProduct(createProductInput: CreateProductInput!): Product!
