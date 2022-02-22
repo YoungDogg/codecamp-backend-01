@@ -5,18 +5,23 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - 3000:3000
-    # volumes:
-    #   # 밖인덱스에서 안에있는 인덱스로
-    #   - ./index.js:/myfolder/index.js
     env_file:
       - ./.env.prod
+    volumes:
+      - ./src:/my_backend/src
+    ports:
+      - 3000:3000
+
   my_database:
     platform: linux/x86_64
     image: mysql:latest
     environment:
       MYSQL_DATABASE: 'myproject'
       MYSQL_ROOT_PASSWORD: 'root'
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+    # cap_add:
+    #   - SYS_NICE
     ports:
-      - 3306:3306
