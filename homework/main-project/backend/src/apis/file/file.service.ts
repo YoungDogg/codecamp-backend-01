@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { FileUpload } from 'graphql-upload';
 import { Storage } from '@google-cloud/storage';
+import { getToday } from 'src/common/libraries/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 interface IFile {
   files: FileUpload[];
@@ -19,11 +21,12 @@ export class FileService {
     const result = await Promise.all(
       waitedFiles.map((file) => {
         return new Promise((resolve, reject) => {
+          const fname = `${getToday()}/${uuidv4()}/origin/${file.filename}`;
           file
             .createReadStream()
-            .pipe(storage.file(file.filename).createWriteStream())
+            .pipe(storage.file(fname).createWriteStream())
             .on('finish', () =>
-              resolve(`${process.env.GOOGLE_BUCKET}/${file.filename}`),
+              resolve(`${process.env.GOOGLE_BUCKET}/${fname}`),
             )
             .on('error', (error) => reject(error));
         });
