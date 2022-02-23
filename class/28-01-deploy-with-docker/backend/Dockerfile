@@ -2,8 +2,8 @@ FROM node:16
 
 WORKDIR /my_backend/
 # 이거 추가, 패키지에 뭐 추가했을 때
-COPY ./package.json /myfolder/
-COPY ./yarn.lock /myfolder/
+COPY ./package.json /my_backend/
+COPY ./yarn.lock /my_backend/
 # 얀 설치, 꽤나 무겁다.
 RUN yarn install 
 
