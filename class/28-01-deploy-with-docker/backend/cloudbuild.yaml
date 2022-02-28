@@ -1,0 +1,9 @@
+steps:
+  - name: ubuntu
+    age:
+      - echo
+      - hello
+  - name: ubuntu
+    age:
+      - echo
+      - hello1
