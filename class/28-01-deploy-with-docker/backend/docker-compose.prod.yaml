@@ -6,8 +6,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+<<<<<<< Updated upstream
     env_file: # cloudbuild.yaml 쓰려면 주석
       - ./.env.prod # cloudbuild.yaml 쓰려면 주석
+=======
+     env_file:
+       - ./.env.prod
+>>>>>>> Stashed changes
     # volumes:
     #   - ./src:/my_backend/src
     ports:
