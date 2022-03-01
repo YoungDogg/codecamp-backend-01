@@ -26,7 +26,7 @@ import { ConfigModule } from '@nestjs/config';
     TypeOrmModule.forRoot({
       type: 'mysql',
       // host: '10.83.176.3', // gcp ip 주소로다가
-      host: 'localhost', // gcp ip 주소로다가
+      host: 'my_database',
       port: 3306,
       username: 'root',
       password: 'root',
