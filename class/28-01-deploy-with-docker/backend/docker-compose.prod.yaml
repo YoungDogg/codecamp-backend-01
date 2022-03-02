@@ -3,7 +3,7 @@ version: '3.3'
 services:
   my_backend:
     platform: linux/x86_64 # m1 때문에 이거 추가함
-    image: asia.gcr.io/codecamp-342701/my_backend:1.2.1
+    image: asia.gcr.io/codecamp-342701/my_backend:1.3
     build:
       context: .
       dockerfile: Dockerfile
