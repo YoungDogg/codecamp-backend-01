@@ -33,6 +33,7 @@
     "apollo-server-express": "^3.6.2",
     "axios": "^0.26.0",
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.0",
     "graphql": "15.8.0",
     "graphql-upload": "^13.0.0",

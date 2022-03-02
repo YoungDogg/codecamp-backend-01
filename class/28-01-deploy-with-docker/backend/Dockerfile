@@ -1,4 +1,5 @@
-FROM node:16
+FROM node:14 
+# m1 때문에 이거 추가함
 
 WORKDIR /my_backend/
 COPY ./package.json /my_backend/
