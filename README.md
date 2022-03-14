@@ -21,10 +21,17 @@
 
 
 # API 설계
+ - 각 클래스마다
+ - Create : create클래스명
+ - Read :  Fetch클래스명
+ - Update : update클래스명
+ - Delete : delete클래스명
 
 # 프로젝트 설치 방법 & 실행 방법
+ - 프로젝트를 다운 받는다
 
 # 폴더 구조
+ - 
 
 # .env 설정
 
