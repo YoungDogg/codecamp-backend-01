@@ -13,8 +13,8 @@
  - node.js, typescript, mysql, Docker, Git, GCP 
 
 # ERD
+![MU ERD](https://user-images.githubusercontent.com/40794138/158095552-46e49b19-a9a6-4b2e-83af-35f4d5f114f5.png)
 
- - 추가 예정
 
 # 파이프라인
 ![image](https://user-images.githubusercontent.com/40794138/158095362-7cce929b-2ab9-4c1e-b5f4-188d38ef6f99.png)
