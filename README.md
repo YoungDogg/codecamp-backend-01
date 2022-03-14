@@ -13,8 +13,7 @@
  - node.js, typescript, mysql, Docker, Git, GCP 
 
 # ERD
-![MU ERD](https://user-images.githubusercontent.com/40794138/158095552-46e49b19-a9a6-4b2e-83af-35f4d5f114f5.png)
-![00](https://user-images.githubusercontent.com/40794138/158100858-45f888f5-6d4c-4573-8ce1-94fc5bc5b609.png)
+![MU ERD](https://user-images.githubusercontent.com/40794138/158095552-46e49b19-a9a6-4b2e-83af-35f4d5f114f5.png) 
 
 
 
