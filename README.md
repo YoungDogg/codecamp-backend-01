@@ -17,6 +17,8 @@
  - 추가 예정
 
 # 파이프라인
+![image](https://user-images.githubusercontent.com/40794138/158095362-7cce929b-2ab9-4c1e-b5f4-188d38ef6f99.png)
+
 
 # API 설계
 
